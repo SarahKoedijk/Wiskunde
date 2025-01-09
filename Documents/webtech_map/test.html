@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Accessible Bites</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+    /* Algemene styling */
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: #fffafa;
+    }
+
+    /* Navigatiebalk styling */
+    .topnav {
+      overflow: hidden;
+      background-color: #000;
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+    }
+
+    .topnav a {
+      text-align: center;
+      color: white;
+      padding: 10px 16px;
+      text-decoration: none;
+      font-size: 17px;
+      font-weight: bold;
+    }
+
+    .topnav a.active {
+      color: white;
+      border-radius: 24px;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      margin-right: 500px;
+      gap: 5px; /* Zorgt voor ruimte tussen ster en titel */
+    }
+
+    .topnav a:hover {
+      background-color: #575757;
+      color: white;
+    }
+
+    /* Ster styling */
+    .ster {
+      font-size: 50px;
+      color: #00e448;
+    }
+
+    /* Dropdown styling */
+    .dropdown {
+      margin-left: auto; /* Zorgt ervoor dat de dropdown aan de rechterkant staat */
+    }
+
+    .dropbtn {
+      background-color: #0aa80f;
+      border-radius: 18px;
+      color: white;
+      padding: 16px;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f1f7f0;
+      border-radius: 18px;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+    }
+
+    .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      border-radius: 18px;
+      display: block;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #5abf5d;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    .dropdown:hover .dropbtn {
+      background-color: #3e8e41;
+    }
+
+    /* Header styling */
+    header {
+      text-align: center;
+      color: white;
+      padding: 100px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(120deg, #9a4749, #61be28, #dab50d, #1b64e3);
+      background-size: 300% 300%;
+      animation: gradientAnimation 16s infinite ease-in-out;
+      z-index: -1;
+    }
+
+    header h1 {
+      font-size: 45px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    header h2 {
+      font-size: 24px;
+      font-weight: lighter;
+      margin-top: 0;
+    }
+
+    /* Zoekbalk styling */
+    .search-container {
+      display: flex;
+      justify-content: center;
+      margin: 30px 0;
+    }
+
+    .search-container input[type="text"] {
+      padding: 15px;
+      font-size: 18px;
+      border: 1px solid #000000;
+      border-radius: 50px;
+      width: 1100px;
+      max-width: 500px;
+    }
+
+    .search-container button {
+      padding: 15px;
+      background-color: #2196F3;
+      color: white;
+      font-size: 18px;
+      border: none;
+      cursor: pointer;
+      border-radius: 30px;
+    }
+
+    .search-container button:hover {
+      background-color: #0b7dda;
+    }
+
+    /* Animatie voor header */
+    @keyframes gradientAnimation {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    /* Over ons sectie */
+    .about {
+      margin: 50px auto;
+      text-align: left;
+      font-family: Arial, sans-serif;
+      background-color: rgb(0, 255, 81);
+      padding: 25px;
+      width: 80%;
+      max-width: 800px;
+      border-radius: 20px;
+    }
+
+    .about h3 {
+      font-weight: bold;
+      font-size: 30px;
+    }
+
+    .about p {
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .meerinfo {
+      cursor: pointer;
+      padding: 10px 15px;
+      background-color: #2196F3;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      text-transform: uppercase;
+      font-size: 14px;
+    }
+
+    .meerinfo:hover {
+      background-color: #0b7dda;
+    }
+
+    /* Review sectie */
+    .review {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 50px 0;
+      position: relative;
+    }
+
+    .review::before,
+    .review::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background-color: #e0e0e0;
+    }
+
+    .review::before {
+      margin-right: 10px;
+    }
+
+    .review::after {
+      margin-left: 10px;
+    }
+
+    .review-text {
+      display: inline-block;
+      text-align: center;
+      background-color: #fff;
+      padding: 10px 20px;
+      border: 1px solid #e0e0e0;
+      border-radius: 30px;
+      color: #000;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .review-text a {
+      color: #007bff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .review-text a:hover {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navigatiebalk -->
+  <div class="topnav">
+    <a class="active" href="#home">
+      <span class="ster">&#8902;</span> Accessible Bites
+    </a>
+    <a href="#review">Schrijf een review</a>
+    <a href="#aanbevelingenvoorrestaurants">Aanbevelingen voor restaurants</a>
+    <a href="#about">Over ons</a>
+
+    <!-- Dropdown menu -->
+    <div class="dropdown">
+      <button class="dropbtn">NEDERLANDS</button>
+      <div class="dropdown-content">
+        <a href="#">ENGLISH</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <h1>Vind een restaurant dat toegankelijk is voor iedereen</h1>
+    <h2>Echte reviews door echte mensen</h2>
+
+    <!-- Zoekbalk -->
+    <div class="search-container">
+      <form action="/action_page.php">
+        <input type="text" placeholder="Zoek een restaurant..." name="search">
+        <button type="submit"><i class="fa fa-search"></i></button>
+      </form>
+    </div>
+  </header>
+
+  <!-- Over ons sectie -->
+  <div class="about">
+    <h3>Wie zijn wij</h3>
+    <p>
+      Wij zijn een reviewplatform waar toegankelijkheid centraal staat. Onze missie is om een bron van vertrouwen te zijn
+      voor iedereen, zodat mensen met een fysieke beperking zorgeloos kunnen genieten van een etentje. Wij geloven dat
+      iedereen recht heeft op een gastvrije en inclusieve ervaring en willen een regionale gids zijn die
+      toegankelijkheid zichtbaar maakt.
+    </p>
+    <button class="meerinfo">Meer informatie</button>
+  </div>
+
+  <!-- Review-sectie -->
+  <div class="review">
+    <div class="review-text">
+      Onlangs uit eten geweest? <a href="#review">Schrijf een review →</a>
+    </div>
+  </div>
+
+</body>
+
+</html>
